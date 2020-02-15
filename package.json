@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mr-undefined/barber-shop#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
