@@ -1,8 +1,16 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import {
+  startOfHour,
+  parseISO,
+  isBefore,
+  format,
+  subHours,
+} from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   async index(req, res) {
@@ -37,8 +45,8 @@ class AppointmentController {
   }
 
   async store(req, res) {
-    const schema = Yup.object.shape({
-      privider_id: Yup.number().required(),
+    const schema = Yup.object().shape({
+      provider_id: Yup.number().required(),
       date: Yup.date().required(),
     });
 
@@ -48,6 +56,9 @@ class AppointmentController {
 
     const { provider_id, date } = req.body;
 
+    /**
+     * Check if user with provider_id is a provider
+     */
     const isProvider = await User.findOne({
       where: { id: provider_id, provider: true },
     });
@@ -62,6 +73,9 @@ class AppointmentController {
       return res.status(400).json({ error: 'Past dates are not allowed' });
     }
 
+    /**
+     * Check data availability
+     */
     const checkAvailability = await Appointment.findOne({
       where: {
         provider_id,
@@ -80,8 +94,42 @@ class AppointmentController {
       date: hourStart,
     });
 
+    /**
+     * Notify appointment provider
+     */
+    const user = await User.findByPk(req.userId);
+    const formattedDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", { locale: pt });
+
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para ${formattedDate}`,
+      user: provider_id,
+    });
+
+    return res.json(appointment);
+  }
+
+  async delete(req, res) {
+    const appointment = await Appointment.findByPk(req.params.id);
+
+    if (appointment.user_id !== req.userId) {
+      return res.status(401).json({ error: 'You dont have permission to cancel this appointment' });
+    }
+
+    const dateWithSub = subHours(appointment.date, 2);
+
+    /**
+     * Verify limit date to cancel an appointment
+     */
+    if (isBefore(dateWithSub, new Date())) {
+      return res.status(401).json({ error: 'You can only cancel appointments with 2hours in advance.' });
+    }
+
+    appointment.canceled_at = new Date();
+
+    await appointment.save();
+
     return res.json(appointment);
   }
 }
 
-export default AppointmentController;
+export default new AppointmentController();
