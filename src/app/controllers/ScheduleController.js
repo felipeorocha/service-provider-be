@@ -30,14 +30,14 @@ class ScheduleControler {
           ],
         },
       },
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: 'name',
-        },
-      ],
-      order: ['date'],
+      // include: [
+      //   {
+      //     model: User,
+      //     as: 'user',
+      //     attributes: ['name'],
+      //   },
+      // ],
+      // order: ['date'],
     });
 
     return res.json(appointments);
