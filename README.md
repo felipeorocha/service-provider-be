@@ -47,20 +47,30 @@ Para subir o projeto localmente:
 - Receita de uma imagem, aceita que seja montada a propria imagem
 - Define com a imagem da app deve funcionar, é a receita para que a app funcione em um ambiente do zero
   > Partimos de uma imagem existente (a app em si) node 10
+  ```
   FROM node:10
+  ```
 
   > Definimos a pasta e copiamos os arquivos
+  ```
   WORKDIR /usr/app
   COPY . ./
+  ```
 
   > Instalando as dependências
+  ```
   RUN yarn
+  ```
 
   > Qual porta desejada a expor, para que os outros servicos consigam acessar a app
+  ```
   EXPOSE 3333
+  ```
 
   > Executa a app
+  ```
   CMD yarn start
+  ```
 
 ###### Criacao de servicos
 - Iniciando container com imagem postgres:
