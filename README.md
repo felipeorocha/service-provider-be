@@ -1,5 +1,6 @@
 # API End-points
 
+```
 POST '/users': cadastro de um usuario
 POST '/sessions': autenticacao de um usuario
 PUT '/users': atualizacao de um usuario (deve estar autenticado)
@@ -11,6 +12,7 @@ GET '/schedule': lista os agentamentos de um usuario
 GET '/notifications': lista as notificacoes de um dado usuario
 PUT '/notifications/:id': atualiza as notificacoes de um dado usuario
 POST '/files': adiciona um arquivo (imagem) referente ao avatar de um usuario
+```
 
 # API Start up:
 
@@ -147,7 +149,8 @@ config/databse.js - exporta atquivo de configuracao
   - Controller sao representacao das regras de negocio
     - Nao chamam outros controller/metodos
     - Possuem apenas/no maximo 5 metodos
-        ```class UserController {
+        ```
+        class UserController {
           index() { // ...listagem de usuarios (registro) }
           show() { // ...exibicao de um unico usuario (registro) }
           store() { // ...cadastro de usuario (registro) }
