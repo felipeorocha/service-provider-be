@@ -16,13 +16,11 @@ POST '/files': adiciona um arquivo (imagem) referente ao avatar de um usuario
 
 App configurada para interpretar o padrao import/export es6(), ao inves de commonjs(require), atraves do modulo esm
 Assim, com essa config, e subindo o projeto junto ao nodemon (auto-update) o script de dev fica:
-...
 ```
 "scripts": {
     "dev": "nodemon -r esm src/server.js"
   }
 ```
-...
 Para subir o projeto localmente:
 > yarn dev
 
@@ -149,11 +147,12 @@ config/databse.js - exporta atquivo de configuracao
   - Controller sao representacao das regras de negocio
     - Nao chamam outros controller/metodos
     - Possuem apenas/no maximo 5 metodos
-        class UserController {
-          ```index() { // ...listagem de usuarios (registro) }```
-          ```show() { // ...exibicao de um unico usuario (registro) }```
-          ```store() { // ...cadastro de usuario (registro) }```
-          ```update() { // ... atualizacao/alteracao de um usuario (registro) }```
-          ```delete() { // ... remocao de um usuario (registro) }```
+        ```class UserController {
+          index() { // ...listagem de usuarios (registro) }
+          show() { // ...exibicao de um unico usuario (registro) }
+          store() { // ...cadastro de usuario (registro) }
+          update() { // ... atualizacao/alteracao de um usuario (registro) }
+          delete() { // ... remocao de um usuario (registro) }
         }
+        ```
   - Views serao os JSON retornados pelos controllers e consumidos pela app front-end
