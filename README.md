@@ -74,8 +74,9 @@ Para subir o projeto localmente:
 
 ###### Criacao de servicos
 - Iniciando container com imagem postgres:
-  '$ docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres'
-
+  ```
+  $ docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+  ```
   - --name: nome do container postgres
   - -e variável de ambiente de senha do container
   - -p redirecionamento de porta
@@ -100,26 +101,26 @@ Para subir o projeto localmente:
   - Apenas codigo javascrip, nada de SQL
 
   Exemplo SQL:
-  ```INSERT INTO users (name, email) VALUES ("Felipe Rocha", "felipeo.rocha@hotmail.com");```
+  ```INSERT INTO users (name, email) VALUES ("User User", "user.user@gmail.com");```
 
   Exemplo JS:
   ```
   User.create({
-    name: "Felipe Rocha",
-    email: "felipeo.rocha@hotmail.com"
+    name: "User User",
+    email: "user.user@gmail.com"
   })
   ```
 
 O sequelize tem o papel de fazer a traducao do codigo JS para codigo SQL
 
   Exemplo SQL:
- ```SELECT *FROM users WHERE email = "felipeo.rocha@hotmail.com";```
+ ```SELECT *FROM users WHERE email = "user.user@gmail.com";```
 
   EXEMPLO JS:
   ```
   'User.findOne({
     where: {
-      email: "felipeo.rocha@hotmail.com"
+      email: "user.user@gmail.com"
     }
   })
   ```
