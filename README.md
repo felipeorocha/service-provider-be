@@ -17,9 +17,12 @@ POST '/files': adiciona um arquivo (imagem) referente ao avatar de um usuario
 App configurada para interpretar o padrao import/export es6(), ao inves de commonjs(require), atraves do modulo esm
 Assim, com essa config, e subindo o projeto junto ao nodemon (auto-update) o script de dev fica:
 ...
+```
 "scripts": {
     "dev": "nodemon -r esm src/server.js"
-  } ...
+  }
+```
+...
 Para subir o projeto localmente:
 > yarn dev
 
@@ -87,25 +90,29 @@ Para subir o projeto localmente:
   - Apenas codigo javascrip, nada de SQL
 
   Exemplo SQL:
-  'INSERT INTO users (name, email) VALUES ("Felipe Rocha", "felipeo.rocha@hotmail.com");'
+  ```INSERT INTO users (name, email) VALUES ("Felipe Rocha", "felipeo.rocha@hotmail.com");```
 
   Exemplo JS:
-  'User.create({
+  ```
+  User.create({
     name: "Felipe Rocha",
     email: "felipeo.rocha@hotmail.com"
-  })'
+  })
+  ```
 
 O sequelize tem o papel de fazer a traducao do codigo JS para codigo SQL
 
   Exemplo SQL:
- 'SELECT *FROM users WHERE email = "felipeo.rocha@hotmail.com";'
+ ```SELECT *FROM users WHERE email = "felipeo.rocha@hotmail.com";```
 
   EXEMPLO JS:
+  ```
   'User.findOne({
     where: {
       email: "felipeo.rocha@hotmail.com"
     }
-  })'
+  })
+  ```
 
 ###### Sequelize config
 
@@ -143,10 +150,10 @@ config/databse.js - exporta atquivo de configuracao
     - Nao chamam outros controller/metodos
     - Possuem apenas/no maximo 5 metodos
         class UserController {
-          index() { // ...listagem de usuarios (registro) }
-          show() { // ...exibicao de um unico usuario (registro) }
-          store() { // ...cadastro de usuario (registro) }
-          update() { // ... atualizacao/alteracao de um usuario (registro) }
-          delete() { // ... remocao de um usuario (registro) }
+          ```index() { // ...listagem de usuarios (registro) }```
+          ```show() { // ...exibicao de um unico usuario (registro) }```
+          ```store() { // ...cadastro de usuario (registro) }```
+          ```update() { // ... atualizacao/alteracao de um usuario (registro) }```
+          ```delete() { // ... remocao de um usuario (registro) }```
         }
   - Views serao os JSON retornados pelos controllers e consumidos pela app front-end
