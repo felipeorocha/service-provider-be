@@ -208,8 +208,9 @@ da styleguide escolhida automaticamente ao salvar as alteracoes no codigo:
 rules: {
   "class-methods-use-this": "off", // ignore obligation to use this in class methods
   "no-param-reassign": "off", // allow alterations in received params method
-  "camelcase": "off", // remove enforced camelcae on vars
+  "camelcase": "off", // disable enforced camelcase on vars
   "no-unused-vars": ["error", { "argsIgnorePattern": "next" }], // allow unused vars... its necessaire to declare next in some express middlewares
+  "arrow-body-style": "off", // disable arrow body styleguide force definition
 },
 ```
 - Install prettier and eslint dependencies: yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
