@@ -149,10 +149,13 @@ config/databse.js - exporta atquivo de configuracao
   - Cada migration deve realizar alteracoes em apenas uma tabela
 
   Exemplo de criacao da migration da tabela de users:
-  - yarn sequelize migration:create --name=create-users // parte do modulo sequelize-cli
+  - yarn sequelize migration:create --name=create-users // parte do modulo sequelize-cli, gera um esqueleto para a criacao da tabela users
   Devera criar o arquivo de migration de usuarios no path src/database/migrations/{random_number}-create-users.js contendo
   os metodos up: createTable() e down: dropTable()
-
+  - yarn sequelize db:migrate // cria a tabela de users dentro do db postgres
+  Rodando rollback das migrations:
+  - yarn sequelize db:migrate:undo // rollback da ultima migration
+  - yarn sequelize db:migrate:undo:all // rollback de todas as migrations
 ###### Arquitetura
 
   - MVC
@@ -170,3 +173,77 @@ config/databse.js - exporta atquivo de configuracao
         }
         ```
   - Views serao os JSON retornados pelos controllers e consumidos pela app front-end
+
+###### Configuracao de projeto
+
+Eslint config
+
+- Install eslint: yarn add eslint - devDependencie
+- Init eslint: yarn eslint --init
+- Choose a styleguide: airbnb (example)
+
+remover package-lock.json e rodar yarn
+
+Configuracoes de eslint:
+
+Antes, caso seja interessante, configurar settings.json (vscode) para aplicar formatacao
+da styleguide escolhida automaticamente ao salvar as alteracoes no codigo:
+
+> settings.json
+```
+"[javascript]": {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  }
+},
+
+"[javascriptreact]": {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  }
+},
+```
+> .eslintrc.js
+```
+rules: {
+  "class-methods-use-this": "off", // ignore obligation to use this in class methods
+  "no-param-reassign": "off", // allow alterations in received params method
+  "camelcase": "off", // remove enforced camelcae on vars
+  "no-unused-vars": ["error", { "argsIgnorePattern": "next" }], // allow unused vars... its necessaire to declare next in some express middlewares
+},
+```
+- Install prettier and eslint dependencies: yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+> .eslintrc.js
+```
+extends: ['airbnb-base', 'prettier'],
+plugins: ['prettier'],
+...
+rules: {
+  "prettier/prettier": "error",
+  ...
+}
+```
+- Create .prettierrc:
+```
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+```
+Manual eslint fix: yarn eslint --fix src --ext .js
+
+If teamates uses different code editors, is a good practice to use editor config...
+It should make a default config for every editor
+- Install EditorConfig for VSCode (example)
+- Right-click projects root and select 'Generate .editorconfig'
+
+```
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+```
